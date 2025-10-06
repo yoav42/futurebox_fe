@@ -2,24 +2,25 @@ import React from "react";
 import { api, API_BASE } from "../api";
 
 export default function ClaimStart() {
-	const [childId, setChildId] = React.useState("");
 	const [fullName, setFullName] = React.useState("");
 	const [dob, setDob] = React.useState("");
 	const [bc4, setBc4] = React.useState("");
 	const [pp4, setPp4] = React.useState("");
 	const [result, setResult] = React.useState<string | null>(null);
 	const [artifacts, setArtifacts] = React.useState<any[]>([]);
+	const [matchedChildId, setMatchedChildId] = React.useState<string | null>(null);
 
 	async function onSubmit(e: React.FormEvent) {
 		e.preventDefault();
 		try {
-			const res = await api<{ match: boolean }>("/api/claim/start", {
+			const res = await api<{ match: boolean; child_id?: string }>("/api/claim/start", {
 				method: "POST",
-				body: JSON.stringify({ child_id: childId, full_name: fullName, date_of_birth: dob, bc_last4: bc4, passport_last4: pp4 }),
+				body: JSON.stringify({ full_name: fullName, date_of_birth: dob, bc_last4: bc4, passport_last4: pp4 }),
 			});
 			setResult(res.match ? "Match" : "No match");
-			if (res.match) {
-				const list = await api<any[]>(`/api/artifacts?child_id=${encodeURIComponent(childId)}`);
+			if (res.match && res.child_id) {
+				setMatchedChildId(res.child_id);
+				const list = await api<any[]>(`/api/artifacts?child_id=${encodeURIComponent(res.child_id)}`);
 				setArtifacts(list);
 			}
 		} catch (e) {
@@ -31,7 +32,6 @@ export default function ClaimStart() {
 		<div style={{ maxWidth: 640, margin: "40px auto", fontFamily: "system-ui, sans-serif" }}>
 			<h2>Claim Start</h2>
 			<form onSubmit={onSubmit}>
-				<input value={childId} onChange={(e) => setChildId(e.target.value)} placeholder="Child ID" required style={{ width: "100%", padding: 8, marginBottom: 8 }} />
 				<input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Full name" required style={{ width: "100%", padding: 8, marginBottom: 8 }} />
 				<input value={dob} onChange={(e) => setDob(e.target.value)} placeholder="YYYY-MM-DD" required style={{ width: "100%", padding: 8, marginBottom: 8 }} />
 				<input value={bc4} onChange={(e) => setBc4(e.target.value)} placeholder="Birth cert last 4" required style={{ width: "100%", padding: 8, marginBottom: 8 }} />
@@ -49,8 +49,8 @@ export default function ClaimStart() {
 							{artifacts.map((a) => (
 								<li key={a.id}>
 									<strong>{a.title}</strong> — {a.description || "(no description)"} — release {new Date(a.release_at).toLocaleString()} — {" "}
-									{a.unlocked ? (
-										<a href={`${API_BASE}/api/artifacts/${a.id}/download?child_id=${encodeURIComponent(childId)}`} target="_blank" rel="noreferrer">Download</a>
+									{a.unlocked && matchedChildId ? (
+										<a href={`${API_BASE}/api/artifacts/${a.id}/download?child_id=${encodeURIComponent(matchedChildId)}`} target="_blank" rel="noreferrer">Download</a>
 									) : (
 										<span>LOCKED</span>
 									)}

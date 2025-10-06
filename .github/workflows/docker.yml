@@ -52,4 +52,40 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+  deploy-s3-cloudfront:
+    needs: build
+    if: github.ref == 'refs/heads/main' && vars.DEPLOY_FRONTEND == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      S3_BUCKET: ${{ vars.FE_S3_BUCKET }}
+      CF_DISTRIBUTION_ID: ${{ vars.FE_CLOUDFRONT_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ vars.DEPLOY_ROLE_ARN }}
+      - name: Sync to S3
+        run: |
+          aws s3 sync dist s3://${{ env.S3_BUCKET }} --delete --cache-control max-age=31536000,public || true
+          aws s3 cp dist/index.html s3://${{ env.S3_BUCKET }}/index.html --cache-control no-cache --metadata-directive REPLACE
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ env.CF_DISTRIBUTION_ID }} --paths '/*'
+
 

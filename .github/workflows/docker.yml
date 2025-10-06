@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION || 'eu-west-1' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -60,7 +62,7 @@ jobs:
       id-token: write
       contents: read
     env:
-      AWS_REGION: ${{ vars.AWS_REGION }}
+      AWS_REGION: ${{ vars.AWS_REGION || 'eu-west-1' }}
       S3_BUCKET: ${{ vars.FE_S3_BUCKET }}
       CF_DISTRIBUTION_ID: ${{ vars.FE_CLOUDFRONT_ID }}
     steps:

@@ -22,20 +22,32 @@ export default function Signup() {
 			setErr("Could not sign up");
 		}
 	};
-	return (
-		<div style={{ maxWidth: 360, margin: "40px auto", fontFamily: "system-ui, sans-serif" }}>
-			<h2>Sign up</h2>
-			<form onSubmit={onSubmit}>
-				<input value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="Your name" required style={{ width: "100%", padding: 8, marginBottom: 8 }} />
-				<input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" type="email" required style={{ width: "100%", padding: 8, marginBottom: 8 }} />
-				<input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" required style={{ width: "100%", padding: 8, marginBottom: 8 }} />
-				<button type="submit" style={{ width: "100%", padding: 10 }}>Create account</button>
-			</form>
-			{ok && <div style={{ color: "green", marginTop: 8 }}>Account created. Redirecting…</div>}
-			{err && <div style={{ color: "crimson", marginTop: 8 }}>{err}</div>}
-			<div style={{ marginTop: 12 }}>
-				Have an account? <Link to="/login">Login</Link>
-			</div>
-		</div>
-	);
+    return (
+        <div className="max-w-sm mx-auto">
+            <div className="mb-6">
+                <h2 className="text-2xl font-semibold">Create your account</h2>
+                <p className="text-slate-600">Start building your FutureBox.</p>
+            </div>
+            <form onSubmit={onSubmit} className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 space-y-3">
+                <div>
+                    <label className="block text-sm font-medium text-slate-700">Your name</label>
+                    <input value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="Alex Smith" required className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-slate-700">Email</label>
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" type="email" required className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-slate-700">Password</label>
+                    <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" type="password" required className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                </div>
+                <button type="submit" className="w-full inline-flex items-center justify-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500">Create account</button>
+            </form>
+            {ok && <div className="mt-2 text-sm text-emerald-600">Account created. Redirecting…</div>}
+            {err && <div className="mt-2 text-sm text-rose-600">{err}</div>}
+            <div className="mt-3 text-sm text-slate-700">
+                Have an account? <Link className="text-brand-600 hover:underline" to="/login">Login</Link>
+            </div>
+        </div>
+    );
 }

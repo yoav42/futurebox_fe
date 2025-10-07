@@ -18,52 +18,126 @@ export default function Home() {
 		if (!selectedChild) return;
 		api<any[]>(`/api/artifacts?child_id=${selectedChild}`).then(setArtifacts);
 	}, [selectedChild]);
+	// Stats
+	const totalChildren = children.length;
+	const unlockedCount = artifacts.filter((a) => a.unlocked).length;
+	const lockedCount = artifacts.length - unlockedCount;
+
 	return (
-		<div style={{ maxWidth: 900, margin: "40px auto", fontFamily: "system-ui, sans-serif" }}>
-			<h2>FutureBox</h2>
-			<div style={{ display: "flex", justifyContent: "space-between" }}>
-				<div>
-					{token ? (
-						<div>
-							<div>Signed in as {email}</div>
-							<button onClick={logout} style={{ marginTop: 8 }}>Logout</button>
+		<div className="space-y-8">
+			{/* Hero */}
+			<div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-indigo-50 via-white to-emerald-50">
+				<div className="px-6 py-8 md:px-10 md:py-12 flex items-center justify-between gap-6">
+					<div>
+						<h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Memories that arrive right on time</h1>
+						<p className="mt-2 text-slate-700 max-w-xl">Create a private time-capsule for your child. Upload today, unlock on a future date — safely and simply.</p>
+						<div className="mt-4 flex items-center gap-3">
+							{token ? (
+								<>
+									<a href="/artifacts/new" className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500">Create artifact</a>
+									<a href="/children/new" className="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-800 hover:bg-slate-50">Add child</a>
+								</>
+							) : (
+								<>
+									<a href="/signup" className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500">Get started</a>
+									<a href="/claim" className="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-800 hover:bg-slate-50">Claim</a>
+								</>
+							)}
 						</div>
-					) : (
-						<div>You are not signed in.</div>
-					)}
+					</div>
+					<div className="hidden md:block pr-6">
+						<div className="h-28 w-28 rounded-xl bg-brand-500/20 border border-brand-500/30"></div>
+					</div>
 				</div>
 			</div>
-			<div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 24, marginTop: 24 }}>
-				<div>
-					<h3>Your children</h3>
-					<ul>
-						{children.map((c) => (
-							<li key={c.id}>
-								<label>
-									<input type="radio" name="child" checked={selectedChild === c.id} onChange={() => setSelectedChild(c.id)} /> {c.full_name} ({c.date_of_birth})
-								</label>
-							</li>
-						))}
-					</ul>
+
+			{/* Signed-in chip */}
+			<div className="flex items-center justify-between">
+				<div className="text-sm text-slate-600">{token ? <>Signed in as <span className="font-medium text-slate-800">{email}</span></> : <>You are not signed in.</>}</div>
+				{token && <button onClick={logout} className="inline-flex items-center rounded-md border border-slate-300 px-3 py-1.5 text-sm hover:bg-slate-50">Logout</button>}
+			</div>
+
+			{/* Stats */}
+			<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+				<div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+					<div className="text-xs uppercase tracking-wide text-slate-500">Children</div>
+					<div className="mt-1 text-2xl font-semibold">{totalChildren}</div>
 				</div>
-				<div>
-					<h3>Artifacts</h3>
-					{!selectedChild ? (
-						<div>Select a child to view artifacts</div>
-					) : (
-						<ul>
-							{artifacts.map((a) => (
-								<li key={a.id}>
-									<strong>{a.title}</strong> — {a.description || "(no description)"} — release {new Date(a.release_at).toLocaleString()} — {a.unlocked ? (
-										<a href={`${API_BASE}/api/artifacts/${a.id}/download?child_id=${selectedChild}`} target="_blank" rel="noreferrer">Download</a>
-									) : (
-										<span>LOCKED</span>
-									)}
+				<div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+					<div className="text-xs uppercase tracking-wide text-slate-500">Unlocked</div>
+					<div className="mt-1 text-2xl font-semibold text-emerald-600">{unlockedCount}</div>
+				</div>
+				<div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+					<div className="text-xs uppercase tracking-wide text-slate-500">Locked</div>
+					<div className="mt-1 text-2xl font-semibold text-slate-800">{lockedCount}</div>
+				</div>
+			</div>
+
+			<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+				<div className="md:col-span-1">
+					<div className="rounded-xl border border-slate-200 bg-white shadow-sm">
+						<div className="px-4 py-3 border-b border-slate-200 font-medium">Your children</div>
+						<ul className="p-2">
+							{children.map((c) => (
+								<li key={c.id}>
+									<button
+										className={`w-full text-left px-3 py-2 rounded-lg text-sm hover:bg-slate-50 ${selectedChild === c.id ? 'bg-slate-100 font-medium' : ''}`}
+										onClick={() => setSelectedChild(c.id)}
+									>
+										{c.full_name} <span className="text-slate-500">({c.date_of_birth})</span>
+									</button>
 								</li>
 							))}
-							{artifacts.length === 0 && <div>No artifacts yet.</div>}
+							{children.length === 0 && (
+								<div className="px-3 py-3 text-sm text-slate-600">
+									No children yet. {token ? <a href="/children/new" className="text-brand-600 hover:underline">Add one</a> : <a href="/login" className="text-brand-600 hover:underline">Login</a>}.
+								</div>
+							)}
 						</ul>
-					)}
+					</div>
+				</div>
+
+				<div className="md:col-span-2">
+					<div className="rounded-xl border border-slate-200 bg-white shadow-sm">
+						<div className="px-4 py-3 border-b border-slate-200 font-medium">Artifacts</div>
+						<div className="p-4">
+							{!selectedChild ? (
+								<div className="text-slate-600">Select a child to view artifacts</div>
+							) : (
+								<div className="grid gap-3">
+									{artifacts.map((a) => (
+										<div key={a.id} className="rounded-lg border border-slate-200 p-3 flex items-center justify-between">
+											<div>
+												<div className="font-medium">{a.title}</div>
+												<div className="text-sm text-slate-600">{a.description || "(no description)"}</div>
+												<div className="text-xs text-slate-500">Releases {new Date(a.release_at).toLocaleString()}</div>
+											</div>
+											<div>
+												{a.unlocked ? (
+													<a className="inline-flex items-center rounded-md bg-brand-600 text-white px-3 py-1.5 text-sm hover:bg-brand-500" href={`${API_BASE}/api/artifacts/${a.id}/download?child_id=${selectedChild}`} target="_blank" rel="noreferrer">Download</a>
+												) : (
+													<span className="inline-flex items-center rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-700">LOCKED</span>
+												)}
+											</div>
+										</div>
+									))}
+									{artifacts.length === 0 && (
+										<div className="rounded-lg border border-dashed border-slate-300 p-6 text-center text-slate-600">
+											No artifacts yet. {token ? <a href="/artifacts/new" className="text-brand-600 hover:underline">Create one</a> : <a href="/login" className="text-brand-600 hover:underline">Login</a>}.
+										</div>
+									)}
+								</div>
+							)}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{/* Trust banner */}
+			<div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4">
+				<div className="flex items-center gap-3">
+					<div className="h-6 w-6 rounded bg-emerald-500/20 border border-emerald-600/30"></div>
+					<div className="text-sm text-slate-700">Strong identity matching, time-based access, and presigned downloads keep your memories safe.</div>
 				</div>
 			</div>
 		</div>

@@ -1,0 +1,77 @@
+{
+  "family": "futurebox-backend-task",
+  "taskRoleArn": "arn:aws:iam::383856007291:role/FutureboxTaskRole",
+  "executionRoleArn": "arn:aws:iam::383856007291:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "futurebox-backend",
+      "image": "383856007291.dkr.ecr.eu-west-1.amazonaws.com/futurebox-backend:latest",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "hostPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "S3_BUCKET",
+          "value": ""
+        },
+        {
+          "name": "JWT_AUDIENCE",
+          "value": "futurebox-parents"
+        },
+        {
+          "name": "AWS_REGION",
+          "value": "eu-west-1"
+        },
+        {
+          "name": "DATABASE_URL",
+          "value": "postgresql+psycopg://futurebox:futurebox@futurebox-db.cp4okm06wbwt.eu-west-1.rds.amazonaws.com:5432/postgres"
+        },
+        {
+          "name": "JWT_SECRET",
+          "value": "please-change-this-in-aws"
+        },
+        {
+          "name": "JWT_EXP_MINUTES",
+          "value": "60"
+        },
+        {
+          "name": "PEPPER",
+          "value": "please-change-this-in-aws"
+        },
+        {
+          "name": "JWT_ISSUER",
+          "value": "futurebox"
+        },
+        {
+          "name": "STORAGE_DIR",
+          "value": "/data"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/futurebox-backend",
+          "awslogs-region": "eu-west-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "systemControls": []
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "512",
+  "memory": "1024",
+  "volumes": [],
+  "placementConstraints": []
+}

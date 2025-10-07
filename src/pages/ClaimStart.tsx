@@ -28,38 +28,69 @@ export default function ClaimStart() {
 		}
 	}
 
-	return (
-		<div style={{ maxWidth: 640, margin: "40px auto", fontFamily: "system-ui, sans-serif" }}>
-			<h2>Claim Start</h2>
-			<form onSubmit={onSubmit}>
-				<input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Full name" required style={{ width: "100%", padding: 8, marginBottom: 8 }} />
-				<input value={dob} onChange={(e) => setDob(e.target.value)} placeholder="YYYY-MM-DD" required style={{ width: "100%", padding: 8, marginBottom: 8 }} />
-				<input value={bc4} onChange={(e) => setBc4(e.target.value)} placeholder="Birth cert last 4" required style={{ width: "100%", padding: 8, marginBottom: 8 }} />
-				<input value={pp4} onChange={(e) => setPp4(e.target.value)} placeholder="Passport last 4" required style={{ width: "100%", padding: 8, marginBottom: 8 }} />
-				<button type="submit">Check</button>
-			</form>
-			{result && <div style={{ marginTop: 8 }}>Result: {result}</div>}
-			{result === "Match" && (
-				<div style={{ marginTop: 16 }}>
-					<h3>Child's artifacts</h3>
-					{artifacts.length === 0 ? (
-						<div>No artifacts found.</div>
-					) : (
-						<ul>
-							{artifacts.map((a) => (
-								<li key={a.id}>
-									<strong>{a.title}</strong> — {a.description || "(no description)"} — release {new Date(a.release_at).toLocaleString()} — {" "}
-									{a.unlocked && matchedChildId ? (
-										<a href={`${API_BASE}/api/artifacts/${a.id}/download?child_id=${encodeURIComponent(matchedChildId)}`} target="_blank" rel="noreferrer">Download</a>
-									) : (
-										<span>LOCKED</span>
-									)}
-								</li>
-							))}
-						</ul>
-					)}
-				</div>
-			)}
-		</div>
-	);
+    return (
+        <div className="max-w-2xl mx-auto">
+            <div className="mb-6">
+                <h2 className="text-2xl font-semibold">Claim your FutureBox</h2>
+                <p className="text-slate-600">We use multiple factors to protect your privacy. Enter your details below.</p>
+            </div>
+            <form onSubmit={onSubmit} className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 space-y-3">
+                <div>
+                    <label className="block text-sm font-medium text-slate-700">Full name</label>
+                    <input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="First Last" required className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-slate-700">Date of birth</label>
+                    <input value={dob} onChange={(e) => setDob(e.target.value)} placeholder="YYYY-MM-DD" required className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700">Birth certificate last 4</label>
+                        <input value={bc4} onChange={(e) => setBc4(e.target.value)} inputMode="numeric" maxLength={4} placeholder="1234" required className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700">Passport last 4</label>
+                        <input value={pp4} onChange={(e) => setPp4(e.target.value)} inputMode="numeric" maxLength={4} placeholder="5678" required className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                    </div>
+                </div>
+                <div className="pt-2">
+                    <button type="submit" className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500">Check</button>
+                </div>
+            </form>
+
+            {result && (
+                <div className={`mt-3 text-sm ${result === 'Match' ? 'text-emerald-600' : result === 'Error' ? 'text-rose-600' : 'text-slate-700'}`}>Result: {result}</div>
+            )}
+
+            {result === "Match" && (
+                <div className="mt-6 rounded-xl border border-slate-200 bg-white shadow-sm">
+                    <div className="px-4 py-3 border-b border-slate-200 font-medium">Child's artifacts</div>
+                    <div className="p-4">
+                        {artifacts.length === 0 ? (
+                            <div className="text-sm text-slate-500">No artifacts found.</div>
+                        ) : (
+                            <div className="grid gap-3">
+                                {artifacts.map((a) => (
+                                    <div key={a.id} className="rounded-lg border border-slate-200 p-3 flex items-center justify-between">
+                                        <div>
+                                            <div className="font-medium">{a.title}</div>
+                                            <div className="text-sm text-slate-600">{a.description || "(no description)"}</div>
+                                            <div className="text-xs text-slate-500">Releases {new Date(a.release_at).toLocaleString()}</div>
+                                        </div>
+                                        <div>
+                                            {a.unlocked && matchedChildId ? (
+                                                <a className="inline-flex items-center rounded-md bg-brand-600 text-white px-3 py-1.5 text-sm hover:bg-brand-500" href={`${API_BASE}/api/artifacts/${a.id}/download?child_id=${encodeURIComponent(matchedChildId)}`} target="_blank" rel="noreferrer">Download</a>
+                                            ) : (
+                                                <span className="inline-flex items-center rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-700">LOCKED</span>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 }

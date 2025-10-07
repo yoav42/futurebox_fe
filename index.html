@@ -4,8 +4,25 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>FutureBox</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			// Tailwind config (light touch)
+			tailwind.config = {
+				theme: {
+					extend: {
+						colors: {
+							brand: {
+								50: '#eef2ff',
+								500: '#6366f1',
+								600: '#4f46e5',
+							}
+						}
+					}
+				}
+			}
+		</script>
 	</head>
-	<body>
+	<body class="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-800">
 		<div id="root"></div>
 		<script type="module" src="/src/main.tsx"></script>
 	</body>

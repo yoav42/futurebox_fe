@@ -58,21 +58,24 @@ export default function Home() {
 			</div>
 
 			{/* Stats */}
-			<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-				<div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-					<div className="text-xs uppercase tracking-wide text-slate-500">Children</div>
-					<div className="mt-1 text-2xl font-semibold">{totalChildren}</div>
+			{token && (
+				<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+					<div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+						<div className="text-xs uppercase tracking-wide text-slate-500">Children</div>
+						<div className="mt-1 text-2xl font-semibold">{totalChildren}</div>
+					</div>
+					<div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+						<div className="text-xs uppercase tracking-wide text-slate-500">Unlocked</div>
+						<div className="mt-1 text-2xl font-semibold text-emerald-600">{unlockedCount}</div>
+					</div>
+					<div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+						<div className="text-xs uppercase tracking-wide text-slate-500">Locked</div>
+						<div className="mt-1 text-2xl font-semibold text-slate-800">{lockedCount}</div>
+					</div>
 				</div>
-				<div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-					<div className="text-xs uppercase tracking-wide text-slate-500">Unlocked</div>
-					<div className="mt-1 text-2xl font-semibold text-emerald-600">{unlockedCount}</div>
-				</div>
-				<div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-					<div className="text-xs uppercase tracking-wide text-slate-500">Locked</div>
-					<div className="mt-1 text-2xl font-semibold text-slate-800">{lockedCount}</div>
-				</div>
-			</div>
+			)}
 
+			{token && (
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 				<div className="md:col-span-1">
 					<div className="rounded-xl border border-slate-200 bg-white shadow-sm">
@@ -132,6 +135,7 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
+			)}
 
 			{/* Trust banner */}
 			<div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4">

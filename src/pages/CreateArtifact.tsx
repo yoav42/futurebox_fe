@@ -11,7 +11,8 @@ export default function CreateArtifact() {
 	const [release, setRelease] = React.useState("");
 	const [storagePath, setStoragePath] = React.useState<string>("");
 	const [originalName, setOriginalName] = React.useState<string>("");
-	const [selected, setSelected] = React.useState<string[]>([]);
+    const [selected, setSelected] = React.useState<string[]>([]);
+    const [sizeBytes, setSizeBytes] = React.useState<number>(0);
 	const [msg, setMsg] = React.useState<string | null>(null);
 	const [uploading, setUploading] = React.useState(false);
 	React.useEffect(() => {
@@ -30,9 +31,10 @@ export default function CreateArtifact() {
 		form.append("file", f);
 		const res = await fetch(`${API_BASE}/api/uploads`, { method: "POST", headers: { authorization: `Bearer ${token}` }, body: form });
 		if (!res.ok) { setUploading(false); return; }
-		const j = await res.json();
+        const j = await res.json();
 		setStoragePath(j.storage_path);
 		setOriginalName(f.name);
+        if (j.size_bytes) setSizeBytes(j.size_bytes);
 		setUploading(false);
 	}
 	async function onSubmit(e: React.FormEvent) {
@@ -42,7 +44,7 @@ export default function CreateArtifact() {
 		await api<{ id: string }>("/api/artifacts", {
 			method: "POST",
 			headers: { authorization: `Bearer ${token}` },
-			body: JSON.stringify({ owner_parent_id: me.id, title, description, release_at: release, storage_path: storagePath, original_filename: originalName, recipient_child_ids: selected }),
+            body: JSON.stringify({ owner_parent_id: me.id, title, description, release_at: release, storage_path: storagePath, size_bytes: sizeBytes, original_filename: originalName, recipient_child_ids: selected }),
 		});
 		setMsg("Artifact created");
 		setTitle(""); setDescription(""); setRelease(""); setSelected([]); setStoragePath(""); setOriginalName("");

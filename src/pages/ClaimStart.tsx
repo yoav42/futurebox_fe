@@ -1,5 +1,6 @@
 import React from "react";
 import { api, API_BASE } from "../api";
+import CountdownTimer from "../components/CountdownTimer";
 
 export default function ClaimStart() {
 	const [fullName, setFullName] = React.useState("");
@@ -71,18 +72,25 @@ export default function ClaimStart() {
                         ) : (
                             <div className="grid gap-3">
                                 {artifacts.map((a) => (
-                                    <div key={a.id} className="rounded-lg border border-slate-200 p-3 flex items-center justify-between">
-                                        <div>
-                                            <div className="font-medium">{a.title}</div>
-                                            <div className="text-sm text-slate-600">{a.description || "(no description)"}</div>
-                                            <div className="text-xs text-slate-500">Releases {new Date(a.release_at).toLocaleString()}</div>
+                                    <div key={a.id} className="rounded-lg border border-slate-200 p-4 flex items-center justify-between gap-4">
+                                        <div className="flex-1">
+                                            <div className="font-medium text-slate-900">{a.title}</div>
+                                            <div className="text-sm text-slate-600 mt-1">{a.description || "(no description)"}</div>
                                         </div>
-                                        <div>
-                                            {a.unlocked && matchedChildId ? (
-                                                <a className="inline-flex items-center rounded-md bg-brand-600 text-white px-3 py-1.5 text-sm hover:bg-brand-500" href={`${API_BASE}/api/artifacts/${a.id}/download?child_id=${encodeURIComponent(matchedChildId)}`} target="_blank" rel="noreferrer">Download</a>
-                                            ) : (
-                                                <span className="inline-flex items-center rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-700">LOCKED</span>
-                                            )}
+                                        <div className="flex items-center gap-3">
+                                            <CountdownTimer
+                                                releaseAt={a.release_at}
+                                                unlocked={a.unlocked}
+                                                secondsUntilUnlock={a.seconds_until_unlock || 0}
+                                                daysUntilUnlock={a.days_until_unlock || 0}
+                                            />
+                                            <div>
+                                                {a.unlocked && matchedChildId ? (
+                                                    <a className="inline-flex items-center rounded-md bg-brand-600 text-white px-3 py-1.5 text-sm hover:bg-brand-500" href={`${API_BASE}/api/artifacts/${a.id}/download?child_id=${encodeURIComponent(matchedChildId)}`} target="_blank" rel="noreferrer">Download</a>
+                                                ) : (
+                                                    <span className="inline-flex items-center rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-700">🔒 Locked</span>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 ))}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 64 64" role="img" aria-label="FutureBox icon">
+  <defs>
+    <linearGradient id="fb-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#fb-grad)"/>
+  <rect x="14" y="28" width="36" height="20" rx="3" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <path d="M14 28 L32 20 L50 28" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="42" cy="38" r="6.5" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <path d="M42 34 L42 38 L46 38" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+</svg>
+
+

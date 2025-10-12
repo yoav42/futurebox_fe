@@ -13,18 +13,25 @@ function Nav() {
     const { token } = useAuth();
     return (
         <header className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b border-slate-200">
-            <nav className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-                <Link to="/" className="inline-flex items-center gap-2 font-semibold text-slate-800">
-                    <span className="inline-block h-6 w-6 rounded bg-brand-500"></span>
-                    FutureBox
-                </Link>
-                <div className="flex items-center gap-3 text-sm">
-                    <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50" to="/">Home</Link>
-                    <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50" to="/claim">Claim</Link>
-                    {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50" to="/children/new">New Child</Link>}
-                    {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50" to="/artifacts/new">New Artifact</Link>}
-                    {!token && <Link className="px-3 py-1.5 rounded-md bg-brand-600 text-white hover:bg-brand-500" to="/login">Login</Link>}
-                    {!token && <Link className="px-3 py-1.5 rounded-md border border-slate-300 text-slate-700 hover:bg-slate-50" to="/signup">Signup</Link>}
+            <nav className="mx-auto max-w-6xl px-4 py-3">
+                {/* Logo and brand */}
+                <div className="flex items-center justify-between mb-3 md:mb-0">
+                    <Link to="/" className="inline-flex items-center gap-2 font-semibold text-slate-800">
+                        <img src="/logos/05-elegant-vault.svg" alt="FutureBox" className="h-6 w-6" />
+                        FutureBox
+                    </Link>
+                    {/* Auth buttons - show on right on mobile */}
+                    <div className="flex items-center gap-2">
+                        {!token && <Link className="px-3 py-1.5 rounded-md bg-brand-600 text-white hover:bg-brand-500 text-sm" to="/login">Login</Link>}
+                        {!token && <Link className="px-3 py-1.5 rounded-md border border-slate-300 text-slate-700 hover:bg-slate-50 text-sm" to="/signup">Signup</Link>}
+                    </div>
+                </div>
+                {/* Navigation links - full width on mobile */}
+                <div className="flex items-center gap-1 text-sm overflow-x-auto">
+                    <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/">Home</Link>
+                    <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/claim">Claim</Link>
+                    {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/children/new">New Child</Link>}
+                    {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/artifacts/new">New Artifact</Link>}
                 </div>
             </nav>
         </header>

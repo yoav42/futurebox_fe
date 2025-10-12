@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="128" viewBox="0 0 960 256" role="img" aria-label="FutureBox wordmark">
+  <defs>
+    <linearGradient id="fb-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon -->
+  <g transform="translate(24,24)">
+    <rect x="2" y="2" width="120" height="120" rx="28" fill="url(#fb-grad)"/>
+    <rect x="30" y="64" width="64" height="40" rx="6" fill="none" stroke="#ffffff" stroke-width="6"/>
+    <path d="M30 64 L64 48 L98 64" fill="none" stroke="#ffffff" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="96" cy="92" r="12" fill="none" stroke="#ffffff" stroke-width="6"/>
+    <path d="M96 80 L96 92 L108 92" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- Wordmark (rounded geometric) -->
+  <g fill="#0f172a" transform="translate(176,52)">
+    <path d="M10 96 L10 0 L86 0 L86 20 L34 20 L34 40 L78 40 L78 60 L34 60 L34 96 Z"/>
+    <path d="M110 96 L110 0 L134 0 L134 76 L178 76 L178 96 Z"/>
+    <path d="M202 50 C202 19 228 0 262 0 C296 0 322 19 322 50 C322 81 296 100 262 100 C228 100 202 81 202 50 Z M226 50 C226 67 241 80 262 80 C283 80 298 67 298 50 C298 33 283 20 262 20 C241 20 226 33 226 50 Z"/>
+    <path d="M348 96 L348 0 L372 0 L372 36 L410 0 L442 0 L398 40 L446 96 L418 96 L386 58 L372 71 L372 96 Z"/>
+    <path d="M470 96 L470 0 L494 0 L494 96 Z"/>
+    <path d="M520 96 L520 0 L544 0 L544 36 C552 12 574 0 602 0 L602 24 C572 24 544 38 544 72 L544 96 Z"/>
+    <path d="M638 96 L638 0 L662 0 L662 96 Z"/>
+    <path d="M690 96 L690 0 L714 0 L714 32 C721 10 741 0 764 0 C792 0 812 16 812 46 L812 96 L788 96 L788 50 C788 32 775 22 755 22 C736 22 722 32 714 49 L714 96 Z"/>
+    <path d="M842 96 L842 0 L866 0 L866 36 C875 12 896 0 922 0 C949 0 964 12 964 40 L964 96 L940 96 L940 44 C940 29 931 22 914 22 C896 22 878 34 866 53 L866 96 Z"/>
+  </g>
+</svg>
+
+

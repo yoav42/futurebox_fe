@@ -31,7 +31,8 @@ export default function ClaimStart() {
 
     return (
         <div className="max-w-2xl mx-auto">
-            <div className="mb-6">
+            <div className="mb-8 text-center">
+                <img src="/logos/05-elegant-vault.svg" alt="FutureBox" className="h-16 w-16 mx-auto mb-4" />
                 <h2 className="text-2xl font-semibold">Claim your FutureBox</h2>
                 <p className="text-slate-600">We use multiple factors to protect your privacy. Enter your details below.</p>
             </div>

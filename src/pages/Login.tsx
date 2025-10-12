@@ -24,7 +24,8 @@ export default function Login() {
 	};
     return (
         <div className="max-w-sm mx-auto">
-            <div className="mb-6">
+            <div className="mb-8 text-center">
+                <img src="/logos/05-elegant-vault.svg" alt="FutureBox" className="h-16 w-16 mx-auto mb-4" />
                 <h2 className="text-2xl font-semibold">Welcome back</h2>
                 <p className="text-slate-600">Sign in to manage your FutureBox.</p>
             </div>

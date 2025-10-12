@@ -26,6 +26,30 @@ export default function Home() {
 
 	return (
 		<div className="space-y-8">
+			{/* Header with Logo */}
+			<div className="space-y-4">
+				{/* Logo and title section */}
+				<div className="flex items-center gap-4">
+					<img src="/logos/05-elegant-vault.svg" alt="FutureBox" className="h-12 w-12" />
+					<div>
+						<h1 className="text-2xl font-bold text-slate-900">FutureBox</h1>
+						<p className="text-sm text-slate-600">Digital time capsules for your family</p>
+					</div>
+				</div>
+				{/* User info section - separate row on mobile */}
+				{token && (
+					<div className="flex items-center justify-between">
+						<span className="text-sm text-slate-600">Welcome, {email}</span>
+						<button
+							onClick={logout}
+							className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+						>
+							Logout
+						</button>
+					</div>
+				)}
+			</div>
+
 			{/* Hero */}
 			<div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-indigo-50 via-white to-emerald-50">
 				<div className="px-6 py-8 md:px-10 md:py-12 flex items-center justify-between gap-6">
@@ -47,16 +71,13 @@ export default function Home() {
 						</div>
 					</div>
 					<div className="hidden md:block pr-6">
-						<div className="h-28 w-28 rounded-xl bg-brand-500/20 border border-brand-500/30"></div>
+						<div className="h-28 w-28 rounded-xl bg-white/80 border border-slate-200 flex items-center justify-center shadow-sm">
+							<img src="/logos/05-elegant-vault.svg" alt="FutureBox" className="h-16 w-16" />
+						</div>
 					</div>
 				</div>
 			</div>
 
-			{/* Signed-in chip */}
-			<div className="flex items-center justify-between">
-				<div className="text-sm text-slate-600">{token ? <>Signed in as <span className="font-medium text-slate-800">{email}</span></> : <>You are not signed in.</>}</div>
-				{token && <button onClick={logout} className="inline-flex items-center rounded-md border border-slate-300 px-3 py-1.5 text-sm hover:bg-slate-50">Logout</button>}
-			</div>
 
 			{/* Stats */}
 			{token && (

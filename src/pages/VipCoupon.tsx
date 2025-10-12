@@ -34,10 +34,9 @@ export default function VipCoupon() {
         setMessage(null);
 
         try {
-            const response = await api<{ success: boolean; message: string; is_vip: boolean }>("/api/coupons/redeem", {
+            const response = await api<{ success: boolean; message: string; is_vip: boolean }>(`/api/coupons/redeem/${encodeURIComponent(couponCode.trim())}`, {
                 method: "POST",
                 headers: { authorization: `Bearer ${token}` },
-                body: JSON.stringify({ coupon_name: couponCode.trim() }),
             });
 
             if (response.success) {

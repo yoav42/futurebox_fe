@@ -14,7 +14,9 @@ export default function VipCoupon() {
     React.useEffect(() => {
         if (!token) return;
         
-        api<{ is_vip: boolean; storage_limit_mb: number }>("/api/coupons/status")
+        api<{ is_vip: boolean; storage_limit_mb: number }>("/api/coupons/status", {
+            headers: { authorization: `Bearer ${token}` }
+        })
             .then((data) => {
                 setIsVip(data.is_vip);
             })
@@ -34,6 +36,7 @@ export default function VipCoupon() {
         try {
             const response = await api<{ success: boolean; message: string; is_vip: boolean }>("/api/coupons/redeem", {
                 method: "POST",
+                headers: { authorization: `Bearer ${token}` },
                 body: JSON.stringify({ coupon_name: couponCode.trim() }),
             });
 

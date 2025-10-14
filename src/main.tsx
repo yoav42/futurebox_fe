@@ -31,7 +31,7 @@ function Nav() {
                 <div className="flex items-center gap-1 text-sm overflow-x-auto">
                     <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/">Home</Link>
                     <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/claim">Claim</Link>
-                    {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/children/new">New Child</Link>}
+                    {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/recipients/new">New Recipient</Link>}
                     {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/artifacts/new">New Artifact</Link>}
                     {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/vip-coupon">VIP Coupon</Link>}
                 </div>
@@ -50,7 +50,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<Signup />} />
-                        <Route path="/children/new" element={<CreateChild />} />
+                        <Route path="/recipients/new" element={<CreateChild />} />
                         <Route path="/artifacts/new" element={<CreateArtifact />} />
                         <Route path="/claim" element={<ClaimStart />} />
                         <Route path="/vip-coupon" element={<VipCoupon />} />

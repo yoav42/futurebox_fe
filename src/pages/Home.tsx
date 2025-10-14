@@ -10,7 +10,7 @@ export default function Home() {
 	const [artifacts, setArtifacts] = React.useState<any[]>([]);
 	React.useEffect(() => {
 		if (!token) return;
-		api<any[]>("/api/recipients", { headers: { authorization: `Bearer ${token}` } }).then((rows) => {
+		api<any[]>("/api/children", { headers: { authorization: `Bearer ${token}` } }).then((rows) => {
 			setChildren(rows);
 			if (rows.length && !selectedChild) setSelectedChild(rows[0].id);
 		});
@@ -83,7 +83,7 @@ export default function Home() {
 			{token && (
 				<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
 					<div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-						<div className="text-xs uppercase tracking-wide text-slate-500">Recipients</div>
+						<div className="text-xs uppercase tracking-wide text-slate-500">Children</div>
 						<div className="mt-1 text-2xl font-semibold">{totalChildren}</div>
 					</div>
 					<div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -101,7 +101,7 @@ export default function Home() {
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 				<div className="md:col-span-1">
 					<div className="rounded-xl border border-slate-200 bg-white shadow-sm">
-						<div className="px-4 py-3 border-b border-slate-200 font-medium">Your recipients</div>
+						<div className="px-4 py-3 border-b border-slate-200 font-medium">Your children</div>
 						<ul className="p-2">
 							{children.map((c) => (
 								<li key={c.id}>
@@ -115,7 +115,7 @@ export default function Home() {
 							))}
 							{children.length === 0 && (
 								<div className="px-3 py-3 text-sm text-slate-600">
-									No recipients yet. {token ? <a href="/recipients/new" className="text-brand-600 hover:underline">Add one</a> : <a href="/login" className="text-brand-600 hover:underline">Login</a>}.
+									No children yet. {token ? <a href="/children/new" className="text-brand-600 hover:underline">Add one</a> : <a href="/login" className="text-brand-600 hover:underline">Login</a>}.
 								</div>
 							)}
 						</ul>
@@ -145,7 +145,7 @@ export default function Home() {
 												/>
 												<div>
 													{a.unlocked ? (
-										<a className="inline-flex items-center rounded-md bg-brand-600 text-white px-3 py-1.5 text-sm hover:bg-brand-500" href={`${API_BASE}/api/artifacts/${a.id}/download?child_id=${selectedChild}`} target="_blank" rel="noreferrer">Download</a>
+														<a className="inline-flex items-center rounded-md bg-brand-600 text-white px-3 py-1.5 text-sm hover:bg-brand-500" href={`${API_BASE}/api/artifacts/${a.id}/download?child_id=${selectedChild}`} target="_blank" rel="noreferrer">Download</a>
 													) : (
 														<span className="inline-flex items-center rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-700">🔒 Locked</span>
 													)}

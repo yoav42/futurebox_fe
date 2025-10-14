@@ -26,4 +26,3 @@ SVGs are resolution-independent. For stores or platforms that need PNGs:
 - 1024x256 (wordmark, transparent background)
 
 
-

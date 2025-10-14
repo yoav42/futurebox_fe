@@ -56,4 +56,3 @@ To modify colors, edit the `<stop>` elements within the gradient definitions:
 - **Tech/Innovation**: 02, 04, 06
 - **Typography-focused**: 07
 - **Versatile**: 01, 10
-

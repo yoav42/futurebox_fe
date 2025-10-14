@@ -17,8 +17,8 @@ export default function CreateArtifact() {
 	const [uploading, setUploading] = React.useState(false);
 	React.useEffect(() => {
 		if (!token) return;
-		api<any>("/api/owners/me", { headers: { authorization: `Bearer ${token}` } }).then(setMe);
-		api<any[]>("/api/recipients", { headers: { authorization: `Bearer ${token}` } }).then(setChildren);
+		api<any>("/api/parents/me", { headers: { authorization: `Bearer ${token}` } }).then(setMe);
+		api<any[]>("/api/children", { headers: { authorization: `Bearer ${token}` } }).then(setChildren);
 	}, [token]);
 	function toggle(id: string) {
 		setSelected((s) => s.includes(id) ? s.filter((x) => x !== id) : [...s, id]);
@@ -87,7 +87,7 @@ export default function CreateArtifact() {
                                     <label htmlFor={`c-${c.id}`} className="text-sm">{c.full_name}</label>
                                 </li>
                             ))}
-						{children.length === 0 && <div className="text-sm text-slate-500">No recipients yet.</div>}
+                            {children.length === 0 && <div className="text-sm text-slate-500">No children yet.</div>}
                         </ul>
                     </div>
                     <button type="submit" className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500">Create</button>

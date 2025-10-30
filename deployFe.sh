@@ -3,11 +3,11 @@ set -euo pipefail
 
 # Simple frontend deploy script
 # Usage:
-#   ./deployFe.sh 34.245.209.163
-#   ./deployFe.sh http://34.245.209.163:8000
-#   VITE_API_BASE=http://34.245.209.163:8000 ./deployFe.sh
+#   ./deployFe.sh
+# Optional: VITE_API_BASE must be HTTPS if provided.
 
 REGION=${REGION:-eu-west-1}
+CLOUDFRONT_DISTRIBUTION_ID=${CLOUDFRONT_DISTRIBUTION_ID:-E28X6VO5PKTZPS}
 
 if ! command -v aws >/dev/null 2>&1; then
   echo "aws CLI not found. Install and configure (aws configure)." >&2
@@ -18,25 +18,16 @@ if ! command -v npm >/dev/null 2>&1; then
   exit 1
 fi
 
-# Determine API base
-ARG=${1:-}
+# API base: not required. If provided, enforce HTTPS to avoid mixed content.
 if [[ -n "${VITE_API_BASE:-}" ]]; then
-  API_BASE="$VITE_API_BASE"
-elif [[ -n "$ARG" ]]; then
-  if [[ "$ARG" == http*://* ]]; then
-    API_BASE="$ARG"
-  else
-    API_BASE="http://$ARG:8000"
+  if [[ "$VITE_API_BASE" != https://* ]]; then
+    echo "VITE_API_BASE must be HTTPS (got: $VITE_API_BASE)" >&2
+    exit 1
   fi
-elif [[ -f .env.production ]]; then
-  API_BASE=$(grep -E '^VITE_API_BASE=' .env.production | sed 's/^VITE_API_BASE=//')
+  echo "Building with VITE_API_BASE=$VITE_API_BASE"
 else
-  echo "No backend specified; defaulting to http://localhost:8000" >&2
-  API_BASE="http://localhost:8000"
+  echo "Building without VITE_API_BASE (runtime will default to /api on HTTPS)."
 fi
-
-echo "Building with VITE_API_BASE=$API_BASE"
-export VITE_API_BASE="$API_BASE"
 
 # Install deps and build
 npm install
@@ -50,6 +41,14 @@ aws s3 sync dist "s3://$BUCKET" --delete --cache-control max-age=31536000,public
 aws s3 cp dist/index.html "s3://$BUCKET/index.html" --cache-control no-cache --metadata-directive REPLACE
 
 echo "Deployed: http://$BUCKET.s3-website-$REGION.amazonaws.com"
+
+
+# Optional: Invalidate CloudFront to serve the fresh index.html immediately
+# Usage:
+#   CLOUDFRONT_DISTRIBUTION_ID=E1234567890ABCDEFG ./deployFe.sh
+echo "Creating CloudFront invalidation for /* on distribution $CLOUDFRONT_DISTRIBUTION_ID"
+aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths "/*"
+echo "Invalidation requested. It may take a few minutes to complete."
 
 
 

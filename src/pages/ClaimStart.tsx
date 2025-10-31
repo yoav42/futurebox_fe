@@ -32,9 +32,13 @@ export default function ClaimStart() {
     return (
         <div className="max-w-2xl mx-auto">
             <div className="mb-8 text-center">
-                <img src="/logos/05-elegant-vault.svg" alt="FutureBox" className="h-16 w-16 mx-auto mb-4" />
+                <img src="/logos/05-elegant-vault.svg" alt="FutureBox logo" className="h-16 w-16 mx-auto mb-4" />
                 <h2 className="text-2xl font-semibold">Claim your FutureBox</h2>
                 <p className="text-slate-600">We use multiple factors to protect your privacy. Enter your details below.</p>
+                <div className="mt-3 text-sm text-slate-700 max-w-prose mx-auto">
+                    <p>Use this form to securely check if a FutureBox time capsule was created for you. We match your details against a private record so only the right person can unlock messages, photos, and videos intended for them.</p>
+                    <p className="mt-2">We never show sensitive information during the check. If there’s a match, you’ll see available items and can request secure downloads when they’re unlocked.</p>
+                </div>
             </div>
             <form onSubmit={onSubmit} className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 space-y-3">
                 <div>
@@ -100,6 +104,14 @@ export default function ClaimStart() {
                     </div>
                 </div>
             )}
+
+            {/* Claim help text */}
+            <div className="mt-8 text-left text-sm text-slate-700 space-y-2">
+                <h3 className="text-base font-medium text-slate-900">How claiming works</h3>
+                <p>1) We check your name and date of birth with the last 4 digits of your documents to verify identity.</p>
+                <p>2) If there’s a match, you’ll see items that were created for you along with their unlock dates.</p>
+                <p>3) Unlocked items can be downloaded with a secure, time-limited link.</p>
+            </div>
         </div>
     );
 }

@@ -20,11 +20,17 @@ export default function CreateChild() {
 	async function onSubmit(e: React.FormEvent) {
 		e.preventDefault();
 		if (!me) return;
+		if (typeof window !== 'undefined' && (window as any).gtag) {
+			(window as any).gtag('event', 'form_submit', { form_name: 'create_child' });
+		}
 		await api<{ id: string }>("/api/children", {
 			method: "POST",
 			headers: { authorization: `Bearer ${token}` },
 			body: JSON.stringify({ parent_id: me.id, full_name: fullName, date_of_birth: dob, relation, bc_last4: bc4, passport_last4: pp4 }),
 		});
+		if (typeof window !== 'undefined' && (window as any).gtag) {
+			(window as any).gtag('event', 'child_created');
+		}
 		setMsg("Child created");
 		setFullName(""); setDob(""); setBc4(""); setPp4("");
 		const list = await api<any[]>("/api/children", { headers: { authorization: `Bearer ${token}` } });

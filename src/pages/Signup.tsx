@@ -11,14 +11,23 @@ export default function Signup() {
 	const [ok, setOk] = React.useState(false);
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (typeof window !== 'undefined' && (window as any).gtag) {
+			(window as any).gtag('event', 'form_submit', { form_name: 'signup' });
+		}
 		try {
 			await api<{ id: string }>("/api/parents/signup", {
 				method: "POST",
 				body: JSON.stringify({ email, password, display_name: displayName }),
 			});
+			if (typeof window !== 'undefined' && (window as any).gtag) {
+				(window as any).gtag('event', 'signup', { method: 'email' });
+			}
 			setOk(true);
 			setTimeout(() => nav("/login"), 600);
 		} catch (e) {
+			if (typeof window !== 'undefined' && (window as any).gtag) {
+				(window as any).gtag('event', 'signup_error');
+			}
 			setErr("Could not sign up");
 		}
 	};

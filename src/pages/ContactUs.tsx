@@ -15,15 +15,25 @@ export default function ContactUs() {
 		setError(null);
 		setSuccess(false);
 
+		if (typeof window !== 'undefined' && (window as any).gtag) {
+			(window as any).gtag('event', 'form_submit', { form_name: 'contact_us' });
+		}
+
 		try {
 			await api<{ success: boolean; message: string }>("/api/contact/send", {
 				method: "POST",
 				body: JSON.stringify({ email, message }),
 			});
+			if (typeof window !== 'undefined' && (window as any).gtag) {
+				(window as any).gtag('event', 'contact_submitted');
+			}
 			setSuccess(true);
 			setEmail("");
 			setMessage("");
 		} catch (err: any) {
+			if (typeof window !== 'undefined' && (window as any).gtag) {
+				(window as any).gtag('event', 'contact_error');
+			}
 			setError(err.message || "Failed to send message");
 		} finally {
 			setLoading(false);

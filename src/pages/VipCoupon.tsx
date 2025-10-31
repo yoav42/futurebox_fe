@@ -33,6 +33,10 @@ export default function VipCoupon() {
         setError(null);
         setMessage(null);
 
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+            (window as any).gtag('event', 'form_submit', { form_name: 'vip_coupon_redeem' });
+        }
+
         try {
             const response = await api<{ success: boolean; message: string; is_vip: boolean }>(`/api/coupons/redeem/${encodeURIComponent(couponCode.trim())}`, {
                 method: "POST",
@@ -40,11 +44,17 @@ export default function VipCoupon() {
             });
 
             if (response.success) {
+                if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'coupon_redeemed', { success: true });
+                }
                 setMessage(response.message);
                 setIsVip(response.is_vip);
                 setCouponCode("");
             }
         } catch (err: any) {
+            if (typeof window !== 'undefined' && (window as any).gtag) {
+                (window as any).gtag('event', 'coupon_redeem_error');
+            }
             setError(err.message || "Failed to redeem coupon");
         } finally {
             setLoading(false);

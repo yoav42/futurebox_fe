@@ -13,11 +13,17 @@ export default function ClaimStart() {
 
 	async function onSubmit(e: React.FormEvent) {
 		e.preventDefault();
+		if (typeof window !== 'undefined' && (window as any).gtag) {
+			(window as any).gtag('event', 'form_submit', { form_name: 'claim_start' });
+		}
 		try {
 			const res = await api<{ match: boolean; child_id?: string }>("/api/claim/start", {
 				method: "POST",
 				body: JSON.stringify({ full_name: fullName, date_of_birth: dob, bc_last4: bc4, passport_last4: pp4 }),
 			});
+			if (typeof window !== 'undefined' && (window as any).gtag) {
+				(window as any).gtag('event', 'claim_result', { match: res.match });
+			}
 			setResult(res.match ? "Match" : "No match");
 			if (res.match && res.child_id) {
 				setMatchedChildId(res.child_id);
@@ -25,6 +31,9 @@ export default function ClaimStart() {
 				setArtifacts(list);
 			}
 		} catch (e) {
+			if (typeof window !== 'undefined' && (window as any).gtag) {
+				(window as any).gtag('event', 'claim_error');
+			}
 			setResult("Error");
 		}
 	}

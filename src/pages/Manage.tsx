@@ -40,17 +40,26 @@ export default function Manage() {
         e.preventDefault();
         if (!selectedChildId) return;
         setLoading(true); setMsg(null);
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+            (window as any).gtag('event', 'form_submit', { form_name: 'update_child' });
+        }
         try {
             await api(`/api/children/${selectedChildId}`, {
                 method: "PUT",
                 headers: { authorization: `Bearer ${token}` },
                 body: JSON.stringify({ full_name: form.full_name, date_of_birth: form.date_of_birth, relation: form.relation })
             });
+            if (typeof window !== 'undefined' && (window as any).gtag) {
+                (window as any).gtag('event', 'child_updated');
+            }
             setMsg("Saved");
             // refresh children list
             const rows = await api<Child[]>("/api/children", { headers: { authorization: `Bearer ${token}` } });
             setChildren(rows);
         } catch (e) {
+            if (typeof window !== 'undefined' && (window as any).gtag) {
+                (window as any).gtag('event', 'child_update_error');
+            }
             setMsg("Error saving");
         } finally {
             setLoading(false);
@@ -59,10 +68,20 @@ export default function Manage() {
 
     const onDeleteArtifact = async (id: string) => {
         if (!confirm("Delete this artifact? This cannot be undone.")) return;
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+            (window as any).gtag('event', 'button_click', { button_label: 'Delete artifact', location: 'manage_page' });
+        }
         try {
             await fetch(`${API_BASE}/api/artifacts/${id}`, { method: "DELETE", headers: { authorization: `Bearer ${token}` } });
+            if (typeof window !== 'undefined' && (window as any).gtag) {
+                (window as any).gtag('event', 'artifact_deleted');
+            }
             setArtifacts((prev) => prev.filter((a) => a.id !== id));
-        } catch {}
+        } catch {
+            if (typeof window !== 'undefined' && (window as any).gtag) {
+                (window as any).gtag('event', 'artifact_delete_error');
+            }
+        }
     };
 
     return (

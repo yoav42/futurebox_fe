@@ -59,13 +59,13 @@ export default function Home() {
 						<div className="mt-4 flex items-center gap-3">
 							{token ? (
 								<>
-									<a href="/artifacts/new" className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500" aria-label="Create a new artifact">Create artifact</a>
-									<a href="/children/new" className="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-800 hover:bg-slate-50" aria-label="Add a new child">Add child</a>
+									<a href="/artifacts/new" onClick={() => typeof window !== 'undefined' && (window as any).gtag && (window as any).gtag('event', 'button_click', { button_label: 'Create artifact', location: 'home_hero' })} className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500" aria-label="Create a new artifact">Create artifact</a>
+									<a href="/children/new" onClick={() => typeof window !== 'undefined' && (window as any).gtag && (window as any).gtag('event', 'button_click', { button_label: 'Add child', location: 'home_hero' })} className="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-800 hover:bg-slate-50" aria-label="Add a new child">Add child</a>
 								</>
 							) : (
 								<>
-									<a href="/signup" className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500" aria-label="Create your FutureBox account">Get started</a>
-									<a href="/claim" className="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-800 hover:bg-slate-50" aria-label="Start a claim">Claim</a>
+									<a href="/signup" onClick={() => typeof window !== 'undefined' && (window as any).gtag && (window as any).gtag('event', 'button_click', { button_label: 'Get started', location: 'home_hero' })} className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500" aria-label="Create your FutureBox account">Get started</a>
+									<a href="/claim" onClick={() => typeof window !== 'undefined' && (window as any).gtag && (window as any).gtag('event', 'button_click', { button_label: 'Claim', location: 'home_hero' })} className="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-800 hover:bg-slate-50" aria-label="Start a claim">Claim</a>
 								</>
 							)}
 						</div>

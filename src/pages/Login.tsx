@@ -9,16 +9,25 @@ export default function Login() {
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
 	const [err, setErr] = React.useState<string | null>(null);
-	const onSubmit = async (e: React.FormEvent) => {
+		const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (typeof window !== 'undefined' && (window as any).gtag) {
+			(window as any).gtag('event', 'form_submit', { form_name: 'login' });
+		}
 		try {
 			const res = await api<{ token: string }>("/api/parents/login", {
 				method: "POST",
 				body: JSON.stringify({ email, password }),
 			});
+			if (typeof window !== 'undefined' && (window as any).gtag) {
+				(window as any).gtag('event', 'login', { method: 'email' });
+			}
 			setAuth({ token: res.token, email });
 			nav("/");
 		} catch (e) {
+			if (typeof window !== 'undefined' && (window as any).gtag) {
+				(window as any).gtag('event', 'login_error', { error_type: 'invalid_credentials' });
+			}
 			setErr("Invalid credentials");
 		}
 	};

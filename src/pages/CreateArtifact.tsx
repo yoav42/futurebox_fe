@@ -37,17 +37,23 @@ export default function CreateArtifact() {
         if (j.size_bytes) setSizeBytes(j.size_bytes);
 		setUploading(false);
 	}
-    async function onSubmit(e: React.FormEvent) {
+	async function onSubmit(e: React.FormEvent) {
 		e.preventDefault();
 		if (!storagePath) { setMsg("Please upload a file first"); return; }
 		if (selected.length === 0) { setMsg("Select at least one recipient"); return; }
-        // Convert local datetime to ISO string
-        const releaseIso = release ? new Date(release).toISOString() : "";
-        await api<{ id: string }>("/api/artifacts", {
+		if (typeof window !== 'undefined' && (window as any).gtag) {
+			(window as any).gtag('event', 'form_submit', { form_name: 'create_artifact' });
+		}
+		// Convert local datetime to ISO string
+		const releaseIso = release ? new Date(release).toISOString() : "";
+		await api<{ id: string }>("/api/artifacts", {
 			method: "POST",
 			headers: { authorization: `Bearer ${token}` },
             body: JSON.stringify({ owner_parent_id: me.id, title, description, release_at: releaseIso, storage_path: storagePath, size_bytes: sizeBytes, original_filename: originalName, recipient_child_ids: selected }),
 		});
+		if (typeof window !== 'undefined' && (window as any).gtag) {
+			(window as any).gtag('event', 'artifact_created', { recipients_count: selected.length });
+		}
 		setMsg("Artifact created");
 		setTitle(""); setDescription(""); setRelease(""); setSelected([]); setStoragePath(""); setOriginalName("");
 	}

@@ -37,8 +37,16 @@ npm run build
 ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
 BUCKET="futurebox-fe-$ACCOUNT-$REGION"
 
-aws s3 sync dist "s3://$BUCKET" --delete --cache-control max-age=31536000,public
+aws s3 sync dist "s3://$BUCKET" --delete --cache-control max-age=31536000,public --exclude "sitemap.xml" --exclude "robots.txt"
 aws s3 cp dist/index.html "s3://$BUCKET/index.html" --cache-control no-cache --metadata-directive REPLACE
+# Upload sitemap.xml with correct content-type
+if [[ -f "dist/sitemap.xml" ]]; then
+  aws s3 cp dist/sitemap.xml "s3://$BUCKET/sitemap.xml" --content-type application/xml --cache-control max-age=3600
+fi
+# Upload robots.txt with correct content-type
+if [[ -f "dist/robots.txt" ]]; then
+  aws s3 cp dist/robots.txt "s3://$BUCKET/robots.txt" --content-type text/plain --cache-control max-age=3600
+fi
 
 echo "Deployed: http://$BUCKET.s3-website-$REGION.amazonaws.com"
 

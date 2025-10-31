@@ -99,10 +99,9 @@ export default function ContactUs() {
 			</div>
 
 			<div className="mt-8 text-left text-sm text-slate-700 space-y-2">
-				<h3 className="text-base font-medium text-slate-900">Other ways to reach us</h3>
-				<p>• Press & partnerships: press@futurebox.co</p>
-				<p>• Security & privacy inquiries: security@futurebox.co</p>
-				<p>• Feature requests and feedback are always welcome. We build FutureBox with families in mind.</p>
+				<h3 className="text-base font-medium text-slate-900">Support policy</h3>
+				<p>We currently provide support via this contact form. Please include as much detail as possible so we can help quickly.</p>
+				<p>Feature requests and feedback are always welcome — thank you for helping us improve FutureBox.</p>
 			</div>
 		</div>
 	);

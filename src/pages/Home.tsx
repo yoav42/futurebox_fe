@@ -55,24 +55,24 @@ export default function Home() {
 				<div className="px-6 py-8 md:px-10 md:py-12 flex items-center justify-between gap-6">
 					<div>
 						<h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Memories that arrive right on time</h1>
-						<p className="mt-2 text-slate-700 max-w-xl">Create a private time-capsule for your child. Upload today, unlock on a future date — safely and simply.</p>
+						<p className="mt-2 text-slate-700 max-w-xl">Create a private time-capsule for your child. Upload messages, photos, and videos today, and unlock them on a future date — safely and simply.</p>
 						<div className="mt-4 flex items-center gap-3">
 							{token ? (
 								<>
-									<a href="/artifacts/new" className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500">Create artifact</a>
-									<a href="/children/new" className="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-800 hover:bg-slate-50">Add child</a>
+									<a href="/artifacts/new" className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500" aria-label="Create a new artifact">Create artifact</a>
+									<a href="/children/new" className="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-800 hover:bg-slate-50" aria-label="Add a new child">Add child</a>
 								</>
 							) : (
 								<>
-									<a href="/signup" className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500">Get started</a>
-									<a href="/claim" className="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-800 hover:bg-slate-50">Claim</a>
+									<a href="/signup" className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500" aria-label="Create your FutureBox account">Get started</a>
+									<a href="/claim" className="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-800 hover:bg-slate-50" aria-label="Start a claim">Claim</a>
 								</>
 							)}
 						</div>
 					</div>
 					<div className="hidden md:block pr-6">
 						<div className="h-28 w-28 rounded-xl bg-white/80 border border-slate-200 flex items-center justify-center shadow-sm">
-							<img src="/logos/05-elegant-vault.svg" alt="FutureBox" className="h-16 w-16" />
+							<img src="/logos/05-elegant-vault.svg" alt="FutureBox logo mark" className="h-16 w-16" />
 						</div>
 					</div>
 				</div>
@@ -173,6 +173,21 @@ export default function Home() {
 					<div className="text-sm text-slate-700">Strong identity matching, time-based access, and presigned downloads keep your memories safe.</div>
 				</div>
 			</div>
+
+			{/* SEO copy blocks */}
+			<section className="prose max-w-none">
+				<h2 className="text-xl font-semibold mt-10">What is FutureBox?</h2>
+				<p className="text-slate-700">FutureBox is a secure digital time capsule for families. Parents can privately store messages, photos, and videos for their children and choose a future date when those memories are revealed. It’s a simple way to preserve milestones and send love into tomorrow.</p>
+				<h3 className="text-lg font-semibold mt-6">Why families choose us</h3>
+				<ul className="list-disc pl-5 text-slate-700 space-y-1">
+					<li>Private by default: content is encrypted in transit and protected at rest.</li>
+					<li>Timed release: schedule unlock dates so memories arrive right on time.</li>
+					<li>Identity matching: multi-factor checks ensure only the right person can unlock.</li>
+					<li>Simple downloads: when it’s time, recipients get secure, time-limited links.</li>
+				</ul>
+				<h3 className="text-lg font-semibold mt-6">Use cases</h3>
+				<p className="text-slate-700">Birthday messages, first-day-of-school photos, graduation notes, family history clips, and more. FutureBox helps you capture meaningful moments now and deliver them when they matter most.</p>
+			</section>
 		</div>
 	);
 }

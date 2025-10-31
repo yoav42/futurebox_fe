@@ -1,0 +1,7 @@
+# robots.txt for FutureBox
+User-agent: *
+Allow: /
+
+Sitemap: https://www.futurebox.co/sitemap.xml
+
+

@@ -19,11 +19,16 @@ function Nav() {
                 {/* Logo and brand */}
                 <div className="flex items-center justify-between mb-3 md:mb-0">
                     <Link to="/" className="inline-flex items-center gap-2 font-semibold text-slate-800">
-                        <img src="/logos/05-elegant-vault.svg" alt="FutureBox" className="h-6 w-6" />
+                        <img src="/logos/05-elegant-vault.svg" alt="FutureBox logo" className="h-6 w-6" />
                         FutureBox
                     </Link>
-                    {/* Auth buttons - show on right on mobile */}
+                    {/* Right-side actions */}
                     <div className="flex items-center gap-2">
+                        {/* Prominent actions */}
+                        <Link className="hidden sm:inline-flex items-center px-3 py-1.5 rounded-md bg-emerald-600 text-white hover:bg-emerald-500 text-sm" to="/vip-coupon" aria-label="Redeem VIP coupon">VIP Coupon</Link>
+                        {token && <Link className="hidden sm:inline-flex items-center px-3 py-1.5 rounded-md border border-slate-300 text-slate-700 hover:bg-slate-50 text-sm" to="/children/new" aria-label="Add new child">New Child</Link>}
+                        {token && <Link className="hidden sm:inline-flex items-center px-3 py-1.5 rounded-md border border-slate-300 text-slate-700 hover:bg-slate-50 text-sm" to="/artifacts/new" aria-label="Create new artifact">New Artifact</Link>}
+                        {/* Auth */}
                         {!token && <Link className="px-3 py-1.5 rounded-md bg-brand-600 text-white hover:bg-brand-500 text-sm" to="/login">Login</Link>}
                         {!token && <Link className="px-3 py-1.5 rounded-md border border-slate-300 text-slate-700 hover:bg-slate-50 text-sm" to="/signup">Signup</Link>}
                     </div>
@@ -32,10 +37,11 @@ function Nav() {
                 <div className="flex items-center gap-1 text-sm overflow-x-auto">
                     <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/">Home</Link>
                     <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/claim">Claim</Link>
-                    <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/contact">Contact</Link>
-                    {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/children/new">New Child</Link>}
-                    {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/artifacts/new">New Artifact</Link>}
-                    {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/vip-coupon">VIP Coupon</Link>}
+                    <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/contact">Contact Us</Link>
+                    {/* Mobile quick actions */}
+                    <Link className="sm:hidden text-emerald-700 hover:text-emerald-900 px-3 py-1.5 rounded hover:bg-emerald-50 whitespace-nowrap" to="/vip-coupon">VIP Coupon</Link>
+                    {token && <Link className="sm:hidden text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/children/new">New Child</Link>}
+                    {token && <Link className="sm:hidden text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/artifacts/new">New Artifact</Link>}
                 </div>
             </nav>
         </header>

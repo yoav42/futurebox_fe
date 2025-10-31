@@ -10,6 +10,7 @@ import CreateArtifact from "./pages/CreateArtifact";
 import ClaimStart from "./pages/ClaimStart";
 import VipCoupon from "./pages/VipCoupon";
 import ContactUs from "./pages/ContactUs";
+import Manage from "./pages/Manage";
 
 function Nav() {
     const { token } = useAuth();
@@ -38,6 +39,7 @@ function Nav() {
                     <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/">Home</Link>
                     <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/claim">Claim</Link>
                     <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/contact">Contact Us</Link>
+                    {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/manage">Manage</Link>}
                     {/* Mobile quick actions */}
                     <Link className="sm:hidden text-emerald-700 hover:text-emerald-900 px-3 py-1.5 rounded hover:bg-emerald-50 whitespace-nowrap" to="/vip-coupon">VIP Coupon</Link>
                     {token && <Link className="sm:hidden text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/children/new">New Child</Link>}
@@ -62,6 +64,7 @@ function App() {
                         <Route path="/artifacts/new" element={<CreateArtifact />} />
                         <Route path="/claim" element={<ClaimStart />} />
                         <Route path="/vip-coupon" element={<VipCoupon />} />
+                        <Route path="/manage" element={<Manage />} />
                         <Route path="/contact" element={<ContactUs />} />
                         <Route path="*" element={<Navigate to="/" />} />
                     </Routes>

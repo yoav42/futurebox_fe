@@ -14,6 +14,7 @@ import Manage from "./pages/Manage";
 
 function Nav() {
     const { token } = useAuth();
+    const [open, setOpen] = React.useState(false);
     return (
         <header className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b border-slate-200">
             <nav className="mx-auto max-w-6xl px-4 py-3">
@@ -32,10 +33,16 @@ function Nav() {
                         {/* Auth */}
                         {!token && <Link className="px-3 py-1.5 rounded-md bg-brand-600 text-white hover:bg-brand-500 text-sm" to="/login">Login</Link>}
                         {!token && <Link className="px-3 py-1.5 rounded-md border border-slate-300 text-slate-700 hover:bg-slate-50 text-sm" to="/signup">Signup</Link>}
+                        {/* Hamburger (mobile) */}
+                        <button aria-label="Toggle menu" className="md:hidden ml-1 inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 hover:bg-slate-50" onClick={() => setOpen((v) => !v)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
                 {/* Navigation links - full width on mobile */}
-                <div className="flex items-center gap-1 text-sm overflow-x-auto">
+                <div className={`${open ? 'flex' : 'hidden'} md:flex items-center gap-1 text-sm overflow-x-auto`}>
                     <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/">Home</Link>
                     <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/claim">Claim</Link>
                     <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/contact">Contact Us</Link>

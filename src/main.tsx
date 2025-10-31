@@ -41,17 +41,30 @@ function Nav() {
                         </button>
                     </div>
                 </div>
-                {/* Navigation links - full width on mobile */}
-                <div className={`${open ? 'flex' : 'hidden'} md:flex items-center gap-1 text-sm overflow-x-auto`}>
-                    <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/">Home</Link>
-                    <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/claim">Claim</Link>
-                    <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/contact">Contact Us</Link>
-                    {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/manage">Manage</Link>}
-                    {/* Mobile quick actions */}
-                    <Link className="sm:hidden text-emerald-700 hover:text-emerald-900 px-3 py-1.5 rounded hover:bg-emerald-50 whitespace-nowrap" to="/vip-coupon">VIP Coupon</Link>
-                    {token && <Link className="sm:hidden text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/children/new">New Child</Link>}
-                    {token && <Link className="sm:hidden text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50 whitespace-nowrap" to="/artifacts/new">New Artifact</Link>}
+                {/* Desktop nav */}
+                <div className="hidden md:flex items-center gap-1 text-sm">
+                    <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50" to="/">Home</Link>
+                    <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50" to="/claim">Claim</Link>
+                    <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50" to="/contact">Contact Us</Link>
+                    {token && <Link className="text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded hover:bg-slate-50" to="/manage">Manage</Link>}
                 </div>
+
+                {/* Mobile menu panel */}
+                {open && (
+                    <div className="md:hidden mt-2 rounded-xl border border-slate-200 bg-white shadow-lg divide-y divide-slate-200 overflow-hidden">
+                        <div className="flex flex-col">
+                            <Link className="px-4 py-3 text-slate-800 hover:bg-slate-50" to="/" onClick={() => setOpen(false)}>Home</Link>
+                            <Link className="px-4 py-3 text-slate-800 hover:bg-slate-50" to="/claim" onClick={() => setOpen(false)}>Claim</Link>
+                            <Link className="px-4 py-3 text-slate-800 hover:bg-slate-50" to="/contact" onClick={() => setOpen(false)}>Contact Us</Link>
+                            {token && <Link className="px-4 py-3 text-slate-800 hover:bg-slate-50" to="/manage" onClick={() => setOpen(false)}>Manage</Link>}
+                        </div>
+                        <div className="flex flex-col">
+                            <Link className="px-4 py-3 text-emerald-700 hover:bg-emerald-50" to="/vip-coupon" onClick={() => setOpen(false)}>VIP Coupon</Link>
+                            {token && <Link className="px-4 py-3 text-slate-800 hover:bg-slate-50" to="/children/new" onClick={() => setOpen(false)}>New Child</Link>}
+                            {token && <Link className="px-4 py-3 text-slate-800 hover:bg-slate-50" to="/artifacts/new" onClick={() => setOpen(false)}>New Artifact</Link>}
+                        </div>
+                    </div>
+                )}
             </nav>
         </header>
     );

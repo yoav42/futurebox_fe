@@ -33,9 +33,13 @@ export default function ContactUs() {
 	return (
 		<div className="max-w-2xl mx-auto">
 			<div className="mb-8 text-center">
-				<img src="/logos/05-elegant-vault.svg" alt="FutureBox" className="h-16 w-16 mx-auto mb-4" />
+				<img src="/logos/05-elegant-vault.svg" alt="FutureBox logo" className="h-16 w-16 mx-auto mb-4" />
 				<h2 className="text-2xl font-semibold">Contact Us</h2>
 				<p className="text-slate-600">We'd love to hear from you! Send us a message and we'll respond as soon as possible.</p>
+				<div className="mt-4 text-sm text-slate-700 max-w-2xl mx-auto">
+					<p>Whether you have a question about creating a time capsule, privacy and security, VIP coupons, or anything else, the FutureBox team is here to help. We typically respond within one business day.</p>
+					<p className="mt-2">For faster resolution, include details such as your account email, the page you were on, or any error messages you saw.</p>
+				</div>
 			</div>
 
 			<div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6">
@@ -94,8 +98,11 @@ export default function ContactUs() {
 				)}
 			</div>
 
-			<div className="mt-8 text-center text-sm text-slate-600">
-				<p>We typically respond within 24 hours during business days.</p>
+			<div className="mt-8 text-left text-sm text-slate-700 space-y-2">
+				<h3 className="text-base font-medium text-slate-900">Other ways to reach us</h3>
+				<p>• Press & partnerships: press@futurebox.co</p>
+				<p>• Security & privacy inquiries: security@futurebox.co</p>
+				<p>• Feature requests and feedback are always welcome. We build FutureBox with families in mind.</p>
 			</div>
 		</div>
 	);

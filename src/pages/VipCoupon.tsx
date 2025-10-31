@@ -66,9 +66,12 @@ export default function VipCoupon() {
     return (
         <div className="max-w-md mx-auto">
             <div className="mb-8 text-center">
-                <img src="/logos/05-elegant-vault.svg" alt="FutureBox" className="h-16 w-16 mx-auto mb-4" />
+                <img src="/logos/05-elegant-vault.svg" alt="FutureBox logo" className="h-16 w-16 mx-auto mb-4" />
                 <h2 className="text-2xl font-semibold">VIP Coupon</h2>
-                <p className="text-slate-600">Redeem your VIP coupon to unlock 100MB storage.</p>
+                <p className="text-slate-600">Redeem your VIP coupon to unlock 100MB of storage and premium features designed for families.</p>
+                <div className="mt-3 text-sm text-slate-700 max-w-prose mx-auto">
+                    <p>VIP gives you extra room for high‑resolution photos and longer videos, plus priority support. Enter your coupon code below to activate your benefits instantly.</p>
+                </div>
             </div>
 
             {/* VIP Status */}
@@ -132,9 +135,12 @@ export default function VipCoupon() {
                         </div>
                         <div>
                             <div className="font-medium text-emerald-900">VIP Active!</div>
-                            <div className="text-sm text-emerald-700">
-                                You now have access to 100MB storage and all VIP features.
-                            </div>
+                            <div className="text-sm text-emerald-700">You now have access to 100MB storage and all VIP features.</div>
+                            <ul className="mt-2 text-sm text-emerald-800 list-disc pl-5">
+                                <li>More space for photos and videos</li>
+                                <li>Priority support when you need help</li>
+                                <li>Early access to new capabilities</li>
+                            </ul>
                         </div>
                     </div>
                 </div>

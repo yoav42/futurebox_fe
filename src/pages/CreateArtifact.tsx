@@ -37,14 +37,16 @@ export default function CreateArtifact() {
         if (j.size_bytes) setSizeBytes(j.size_bytes);
 		setUploading(false);
 	}
-	async function onSubmit(e: React.FormEvent) {
+    async function onSubmit(e: React.FormEvent) {
 		e.preventDefault();
 		if (!storagePath) { setMsg("Please upload a file first"); return; }
 		if (selected.length === 0) { setMsg("Select at least one recipient"); return; }
-		await api<{ id: string }>("/api/artifacts", {
+        // Convert local datetime to ISO string
+        const releaseIso = release ? new Date(release).toISOString() : "";
+        await api<{ id: string }>("/api/artifacts", {
 			method: "POST",
 			headers: { authorization: `Bearer ${token}` },
-            body: JSON.stringify({ owner_parent_id: me.id, title, description, release_at: release, storage_path: storagePath, size_bytes: sizeBytes, original_filename: originalName, recipient_child_ids: selected }),
+            body: JSON.stringify({ owner_parent_id: me.id, title, description, release_at: releaseIso, storage_path: storagePath, size_bytes: sizeBytes, original_filename: originalName, recipient_child_ids: selected }),
 		});
 		setMsg("Artifact created");
 		setTitle(""); setDescription(""); setRelease(""); setSelected([]); setStoragePath(""); setOriginalName("");
@@ -68,8 +70,9 @@ export default function CreateArtifact() {
                         <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Optional" className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700">Release time (ISO)</label>
-                        <input value={release} onChange={(e) => setRelease(e.target.value)} placeholder="YYYY-MM-DDTHH:MM:SSZ" required className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                        <label className="block text-sm font-medium text-slate-700">Release date & time</label>
+                        <input type="datetime-local" value={release} onChange={(e) => setRelease(e.target.value)} required step={60} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                        <p className="mt-1 text-xs text-slate-500">Select when this artifact should unlock. Time is saved in UTC.</p>
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-slate-700">File</label>

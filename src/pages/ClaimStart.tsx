@@ -47,7 +47,7 @@ export default function ClaimStart() {
                 </div>
                 <div>
                     <label className="block text-sm font-medium text-slate-700">Date of birth</label>
-                    <input value={dob} onChange={(e) => setDob(e.target.value)} placeholder="YYYY-MM-DD" required className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} required className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>

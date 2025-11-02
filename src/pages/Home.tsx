@@ -54,12 +54,12 @@ export default function Home() {
 			<div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-indigo-50 via-white to-emerald-50">
 				<div className="px-6 py-8 md:px-10 md:py-12 flex items-center justify-between gap-6">
 					<div>
-						<h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Memories that arrive right on time</h1>
-						<p className="mt-2 text-slate-700 max-w-xl">Create a private time-capsule for your child. Upload messages, photos, and videos today, and unlock them on a future date — safely and simply.</p>
+					<h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Store secrets and messages your child will discover later in life</h1>
+					<p className="mt-2 text-slate-700 max-w-xl">Save photos, videos, and heartfelt messages as future-proof memories. Set a future date when your child can unlock and discover these hidden treasures — like a time capsule that opens automatically when the time is right.</p>
 						<div className="mt-4 flex items-center gap-3">
 							{token ? (
 								<>
-									<a href="/artifacts/new" onClick={() => typeof window !== 'undefined' && (window as any).gtag && (window as any).gtag('event', 'button_click', { button_label: 'Create artifact', location: 'home_hero' })} className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500" aria-label="Create a new artifact">Create artifact</a>
+									<a href="/artifacts/new" onClick={() => typeof window !== 'undefined' && (window as any).gtag && (window as any).gtag('event', 'button_click', { button_label: 'Add memory', location: 'home_hero' })} className="inline-flex items-center rounded-md bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-500" aria-label="Add a new memory">Add memory</a>
 									<a href="/children/new" onClick={() => typeof window !== 'undefined' && (window as any).gtag && (window as any).gtag('event', 'button_click', { button_label: 'Add child', location: 'home_hero' })} className="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-800 hover:bg-slate-50" aria-label="Add a new child">Add child</a>
 								</>
 							) : (
@@ -124,10 +124,10 @@ export default function Home() {
 
 				<div className="md:col-span-2">
 					<div className="rounded-xl border border-slate-200 bg-white shadow-sm">
-						<div className="px-4 py-3 border-b border-slate-200 font-medium">Artifacts</div>
+						<div className="px-4 py-3 border-b border-slate-200 font-medium">Memories</div>
 						<div className="p-4">
 							{!selectedChild ? (
-								<div className="text-slate-600">Select a child to view artifacts</div>
+								<div className="text-slate-600">Select a child to view their memories</div>
 							) : (
 								<div className="grid gap-3">
 									{artifacts.map((a) => (
@@ -155,7 +155,7 @@ export default function Home() {
 									))}
 									{artifacts.length === 0 && (
 										<div className="rounded-lg border border-dashed border-slate-300 p-6 text-center text-slate-600">
-											No artifacts yet. {token ? <a href="/artifacts/new" className="text-brand-600 hover:underline">Create one</a> : <a href="/login" className="text-brand-600 hover:underline">Login</a>}.
+											No memories saved yet. {token ? <a href="/artifacts/new" className="text-brand-600 hover:underline">Add your first memory</a> : <a href="/login" className="text-brand-600 hover:underline">Login</a>}.
 										</div>
 									)}
 								</div>
@@ -167,26 +167,39 @@ export default function Home() {
 			)}
 
 			{/* Trust banner */}
-			<div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4">
-				<div className="flex items-center gap-3">
-					<div className="h-6 w-6 rounded bg-emerald-500/20 border border-emerald-600/30"></div>
-					<div className="text-sm text-slate-700">Strong identity matching, time-based access, and presigned downloads keep your memories safe.</div>
+			<div className="rounded-xl border border-emerald-200 bg-emerald-50 shadow-sm p-6">
+				<div className="flex items-start gap-4">
+					<div className="h-8 w-8 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
+						<span className="text-white text-sm">✓</span>
+					</div>
+					<div>
+						<div className="font-medium text-emerald-900 mb-1">Your memories are protected</div>
+						<div className="text-sm text-emerald-800">All files are encrypted, stored securely, and only accessible to verified recipients. We never share your data with third parties. Your family's privacy is our priority.</div>
+					</div>
 				</div>
 			</div>
 
 			{/* SEO copy blocks */}
 			<section className="prose max-w-none">
 				<h2 className="text-xl font-semibold mt-10">What is FutureBox?</h2>
-				<p className="text-slate-700">FutureBox is a secure digital time capsule for families. Parents can privately store messages, photos, and videos for their children and choose a future date when those memories are revealed. It’s a simple way to preserve milestones and send love into tomorrow.</p>
-				<h3 className="text-lg font-semibold mt-6">Why families choose us</h3>
-				<ul className="list-disc pl-5 text-slate-700 space-y-1">
-					<li>Private by default: content is encrypted in transit and protected at rest.</li>
-					<li>Timed release: schedule unlock dates so memories arrive right on time.</li>
-					<li>Identity matching: multi-factor checks ensure only the right person can unlock.</li>
-					<li>Simple downloads: when it’s time, recipients get secure, time-limited links.</li>
+				<p className="text-slate-700">FutureBox is the secure digital time capsule service that lets parents save secrets, proof of milestones, and heartfelt messages for their children to discover later in life. Store photos, videos, letters, and voice messages today, then set a future date when your child can unlock and reveal these hidden treasures. Like a locked safe that opens on its own, FutureBox preserves memories as future-proof evidence of childhood moments, family stories, and messages your child will treasure when they're older.</p>
+				<h3 className="text-lg font-semibold mt-6">Why thousands of parents trust FutureBox</h3>
+				<ul className="list-disc pl-5 text-slate-700 space-y-2">
+					<li><strong>Bank-level security:</strong> All memories are encrypted and stored securely. Your private family moments stay private.</li>
+					<li><strong>Automatic delivery:</strong> Set a future date and your child will be able to unlock their memories when the time comes — no need to remember or manually send.</li>
+					<li><strong>Secure identity verification:</strong> Multi-factor identity matching ensures only your child can access their memories, using information only you and they know.</li>
+					<li><strong>Easy to use:</strong> Upload photos and videos in seconds. Simple interface designed for busy parents who want to preserve family moments without complexity.</li>
+					<li><strong>Free to start:</strong> Begin saving memories today. Upgrade to VIP for more storage when you need it.</li>
 				</ul>
-				<h3 className="text-lg font-semibold mt-6">Use cases</h3>
-				<p className="text-slate-700">Birthday messages, first-day-of-school photos, graduation notes, family history clips, and more. FutureBox helps you capture meaningful moments now and deliver them when they matter most.</p>
+				<h3 className="text-lg font-semibold mt-6">Perfect for secrets and future revelations</h3>
+				<p className="text-slate-700">Save a birthday message as a secret they'll discover on their 18th birthday. Capture their first steps on video and set it to unlock as proof on graduation day — a hidden memory that becomes a surprise gift years later. Write a letter for their wedding day that they'll read on that special moment. Record family stories and life advice as secrets that will be revealed when they're old enough to understand. Store photos of milestones as future-proof evidence of their childhood. FutureBox makes it easy to preserve those hidden treasures and deliver them as surprises at just the right time in their life.</p>
+				<h3 className="text-lg font-semibold mt-6">How it works</h3>
+				<ol className="list-decimal pl-5 text-slate-700 space-y-2">
+					<li><strong>Create your account:</strong> Sign up in seconds — no credit card required. Your secrets stay private and secure.</li>
+					<li><strong>Add your child:</strong> Create a secure profile for each child you want to save memories for. This creates their future-proof vault.</li>
+					<li><strong>Store your secrets:</strong> Upload photos, videos, messages, or any digital file as proof of milestones or hidden messages. Set the unlock date — tomorrow, next year, or decades from now. These memories remain locked and secret until the chosen date.</li>
+					<li><strong>Automatic revelation:</strong> When the date arrives, your child can verify their identity and unlock their hidden memories. The secrets you saved years ago are revealed at just the right moment — like opening a time capsule that's been waiting for them.</li>
+				</ol>
 			</section>
 		</div>
 	);

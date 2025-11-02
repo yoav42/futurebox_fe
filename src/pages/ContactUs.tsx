@@ -44,11 +44,16 @@ export default function ContactUs() {
 		<div className="max-w-2xl mx-auto">
 			<div className="mb-8 text-center">
 				<img src="/logos/05-elegant-vault.svg" alt="FutureBox logo" className="h-16 w-16 mx-auto mb-4" />
-				<h2 className="text-2xl font-semibold">Contact Us</h2>
-				<p className="text-slate-600">We'd love to hear from you! Send us a message and we'll respond as soon as possible.</p>
-				<div className="mt-4 text-sm text-slate-700 max-w-2xl mx-auto">
-					<p>Whether you have a question about creating a time capsule, privacy and security, VIP coupons, or anything else, the FutureBox team is here to help. We typically respond within one business day.</p>
-					<p className="mt-2">For faster resolution, include details such as your account email, the page you were on, or any error messages you saw.</p>
+				<h2 className="text-2xl font-semibold">Contact FutureBox Support</h2>
+				<p className="text-slate-600">Have questions about saving memories for your child? Need help with your account? We're here to help.</p>
+				<div className="mt-4 text-sm text-slate-700 max-w-2xl mx-auto space-y-2">
+					<p>Our support team helps thousands of parents preserve family memories every day. Whether you need help getting started, have questions about security and privacy, want to upgrade to VIP storage, or need assistance with unlocking memories — we've got you covered.</p>
+					<p>We typically respond within 24 hours during business days. For faster resolution, please include:</p>
+					<ul className="list-disc list-inside mt-2 text-left">
+						<li>Your account email address</li>
+						<li>Which page or feature you're having trouble with</li>
+						<li>Any error messages you see</li>
+					</ul>
 				</div>
 			</div>
 
@@ -108,10 +113,26 @@ export default function ContactUs() {
 				)}
 			</div>
 
-			<div className="mt-8 text-left text-sm text-slate-700 space-y-2">
-				<h3 className="text-base font-medium text-slate-900">Support policy</h3>
-				<p>We currently provide support via this contact form. Please include as much detail as possible so we can help quickly.</p>
-				<p>Feature requests and feedback are always welcome — thank you for helping us improve FutureBox.</p>
+			<div className="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-6">
+				<h3 className="text-base font-medium text-slate-900 mb-3">Common questions</h3>
+				<div className="space-y-3 text-sm text-slate-700">
+					<div>
+						<p className="font-medium text-slate-900">How secure is my data?</p>
+						<p>All memories are encrypted both in transit and at rest. We use industry-standard security practices and never share your data with third parties. Your privacy is our top priority.</p>
+					</div>
+					<div>
+						<p className="font-medium text-slate-900">How much storage do I get?</p>
+						<p>Free accounts include 10MB of storage. Upgrade to VIP for 100MB — perfect for high-resolution photos and longer videos.</p>
+					</div>
+					<div>
+						<p className="font-medium text-slate-900">Can I change the unlock date?</p>
+						<p>Currently, unlock dates cannot be changed after a memory is saved. This ensures the integrity of the time capsule experience. Contact us if you have special circumstances.</p>
+					</div>
+					<div>
+						<p className="font-medium text-slate-900">Feature requests and feedback</p>
+						<p>We love hearing from parents about how we can improve FutureBox. Share your ideas through the contact form above — your input helps us build features families actually want.</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
